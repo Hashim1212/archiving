@@ -1,0 +1,107 @@
+<!-- Extends to Main.html -->
+{% extends 'index.html' %}
+
+<!-- Load static -->
+{% load static %}
+
+<!-- Load Datepicker CSS -->
+{% block css %}
+<link
+	rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.css"
+	integrity="sha256-b88RdwbRJEzRx95nCuuva+hO5ExvXXnpX+78h8DjyOE="
+	crossorigin="anonymous"
+/>
+{% endblock css %}
+
+<!-- Main Content -->
+{% block content %}
+<main>
+	<div class="formwrapper profile_formwrapper">
+		<div class="create-room layout">
+			<div class="formcontainer">
+				<div class="form__box profile_form_box">
+					<div class="form__top">
+						<div class="room__topleft">
+							<a href="{% url 'profile' %}">
+								<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+									<title>arrow-left</title>
+									<path
+										d="M13.723 2.286l-13.723 13.714 13.719 13.714 1.616-1.611-10.96-10.96h27.625v-2.286h-27.625l10.965-10.965-1.616-1.607z"
+									></path>
+								</svg>
+							</a>
+						</div>
+						<h3>Edit Profile</h3>
+					</div>
+					<div class="layout__body">
+						{% if messages %} {% for message in messages %} {% if message.tags == 'success' %}
+						<p style="text-align: center; justify-content: center; color: green">{{ message }}</p>
+						{% else %}
+						<p style="text-align: center; justify-content: center; color: red">{{ message }}</p>
+						{% endif %} {% endfor %} {% endif %}
+
+						<form action="" class="modalform" method="POST" enctype="multipart/form-data">
+							{% csrf_token %}
+							<div class="modalform__group">
+								<label for="employee_num">Employee #:</label>
+								<input type="text" id="employee_num" name="employee_num" value="{{user.employee_num}}" />
+							</div>
+							<div class="modalform__group">
+								<label for="phone">Phone Number:</label>
+								<input type="text" id="phone" name="phone_num" value="{{user.phone_num}}" />
+							</div>
+							<div class="modalform__group">
+								<label for="gender">Gender:</label>
+								{{form.gender}}
+							</div>
+							<div class="modalform__group">
+								<label for="nationality">Nationality:</label>
+								<input type="text" id="nationality" name="nationality" value="{{user.nationality}}" />
+							</div>
+							<div class="modalform__group">
+								<label for="occupation">Occupation:</label>
+								<input type="text" id="occupation" name="occupation" value="{{user.occupation}}" />
+							</div>
+							<div class="modalform__group">
+								<label for="birth_date">Birth Date:</label>
+								{{form.birth_date}}
+							</div>
+							<div class="modalform__group">
+								<label for="address">Address:</label>
+								<input type="text" id="address" name="address" value="{{user.address}}" />
+							</div>
+							<div class="modalform__action">
+								<a class="modalbtn modalbtn--dark" href="{% url 'profile' %}">Cancel</a>
+								<button class="modalbtn modalbtn--main" type="submit">Update Profile</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</main>
+
+<!-- Load Datepicker JS -->
+{% block js %}
+<script
+	src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+	crossorigin="anonymous"
+></script>
+
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js"
+	integrity="sha256-/7FLTdzP6CfC1VBAj/rsp3Rinuuu9leMRGd354hvk0k="
+	crossorigin="anonymous"
+></script>
+
+<script>
+	$(function () {
+		$("#id_birth_date").datepicker({
+			format: "yyyy-mm-dd",
+		});
+	});
+</script>
+{% endblock js %} {% endblock content %}

@@ -1,0 +1,567 @@
+<!-- Extends to Main.html -->
+{% extends 'index.html' %}
+
+<!-- Load static -->
+{% load static %}
+
+<!-- Load Swiper CSS -->
+{% block css %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+<link rel="stylesheet" href="{% static 'css/home-datatables.css' %}" />
+{% endblock css %}
+
+<!-- Main Content -->
+{% block content %}
+<main>
+	<div class="container">
+		<h2 class="head-text mb-4">DASHBOARD</h2>
+
+		<div class="row g-2 justify-content-center mb-4">
+			<div class="col">
+				<div class="card border-left-primary shadow py-3">
+					<div class="card-body">
+						<div class="row no-gutters align-items-center">
+							<h3 class="text-center mb-5 ct">
+								MOA/U/C <br />
+								UPLOADED
+							</h3>
+							<div class="d-flex justify-content-between px-5">
+								<div class="text-xs font-weight-bold text-primary text-uppercase mb-1">today</div>
+								<div class="h5 mb-0 font-weight-bold text-gray-800">{{moa_today}}</div>
+							</div>
+							<div class="container"><hr class="mt-3 mb-3" /></div>
+							<div class="d-flex mr-2 justify-content-between px-5">
+								<div class="text-xs font-weight-bold text-primary text-uppercase mb-1">This Month</div>
+								<div class="h5 mb-0 font-weight-bold text-gray-800">{{moa_month}}</div>
+							</div>
+							<div class="container"><hr class="mt-3 mb-3" /></div>
+
+							<div class="d-flex mr-2 justify-content-between px-5">
+								<div class="text-xs font-weight-bold text-primary text-uppercase mb-1">This Year</div>
+								<div class="h5 mb-0 font-weight-bold text-gray-800">{{moa_year}}</div>
+							</div>
+
+							{% if request.user.is_authenticated %}
+							<div class="container"><hr class="mt-3 mb-3" /></div>
+
+							<div class="container text-center">
+								<a href="{% url 'add-moa' %}" class="add-docs d-none d-sm-inline-block btn btn-sm shadow-sm">Add File</a>
+							</div>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col">
+				<div class="card border-left-primary shadow py-3">
+					<div class="card-body">
+						<div class="row no-gutters align-items-center">
+							<h3 class="text-center mb-5 ct">
+								EVENT <br />
+								UPLOADED
+							</h3>
+							<div class="d-flex mr-2 justify-content-between px-5">
+								<div class="text-xs font-weight-bold text-success text-uppercase mb-1">today</div>
+								<div class="h5 mb-0 font-weight-bold text-gray-800">{{event_today}}</div>
+							</div>
+							<div class="container"><hr class="mt-3 mb-3" /></div>
+							<div class="d-flex mr-2 justify-content-between px-5">
+								<div class="text-xs font-weight-bold text-success text-uppercase mb-1">This Month</div>
+								<div class="h5 mb-0 font-weight-bold text-gray-800">{{event_month}}</div>
+							</div>
+							<div class="container"><hr class="mt-3 mb-3" /></div>
+
+							<div class="d-flex mr-2 justify-content-between px-5">
+								<div class="text-xs font-weight-bold text-success text-uppercase mb-1">This Year</div>
+								<div class="h5 mb-0 font-weight-bold text-gray-800">{{event_year}}</div>
+							</div>
+
+							{% if request.user.is_authenticated %}
+							<div class="container"><hr class="mt-3 mb-3" /></div>
+
+							<div class="container text-center">
+								<a href="{% url 'add-event' %}" class="add-docs d-none d-sm-inline-block btn btn-sm shadow-sm">Add File</a>
+							</div>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col">
+				<div class="card border-left-primary shadow py-3">
+					<div class="card-body">
+						<div class="row no-gutters align-items-center">
+							<h3 class="text-center mb-5 ct">
+								MEMO <br />
+								UPLOADED
+							</h3>
+							<div class="d-flex mr-2 justify-content-between px-5">
+								<div class="text-xs font-weight-bold text-warning text-uppercase mb-1">today</div>
+								<div class="h5 mb-0 font-weight-bold text-gray-800">{{memo_today}}</div>
+							</div>
+							<div class="container"><hr class="mt-3 mb-3" /></div>
+							<div class="d-flex mr-2 justify-content-between px-5">
+								<div class="text-xs font-weight-bold text-warning text-uppercase mb-1">This Month</div>
+								<div class="h5 mb-0 font-weight-bold text-gray-800">{{memo_month}}</div>
+							</div>
+							<div class="container"><hr class="mt-3 mb-3" /></div>
+
+							<div class="d-flex mr-2 justify-content-between px-5">
+								<div class="text-xs font-weight-bold text-warning text-uppercase mb-1">This Year</div>
+								<div class="h5 mb-0 font-weight-bold text-gray-800">{{memo_year}}</div>
+							</div>
+
+							{% if request.user.is_authenticated %}
+							<div class="container"><hr class="mt-3 mb-3" /></div>
+
+							<div class="container text-center">
+								<a href="{% url 'add-memo' %}" class="add-docs d-none d-sm-inline-block btn btn-sm shadow-sm">Add File</a>
+							</div>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col">
+				<div class="card border-left-primary shadow py-3">
+					<div class="card-body">
+						<div class="row no-gutters align-items-center">
+							<h3 class="text-center mb-5 ct">
+								LETTER <br />
+								UPLOADED
+							</h3>
+							<div class="d-flex mr-2 justify-content-between px-5">
+								<div class="text-xs font-weight-bold text-primary text-uppercase mb-1">today</div>
+								<div class="h5 mb-0 font-weight-bold text-gray-800">{{letter_today}}</div>
+							</div>
+							<div class="container"><hr class="mt-3 mb-3" /></div>
+							<div class="d-flex mr-2 justify-content-between px-5">
+								<div class="text-xs font-weight-bold text-primary text-uppercase mb-1">This Month</div>
+								<div class="h5 mb-0 font-weight-bold text-gray-800">{{letter_month}}</div>
+							</div>
+							<div class="container"><hr class="mt-3 mb-3" /></div>
+
+							<div class="d-flex mr-2 justify-content-between px-5">
+								<div class="text-xs font-weight-bold text-primary text-uppercase mb-1">This Year</div>
+								<div class="h5 mb-0 font-weight-bold text-gray-800">{{letter_year}}</div>
+							</div>
+
+							{% if request.user.is_authenticated %}
+							<div class="container"><hr class="mt-3 mb-3" /></div>
+
+							<div class="container text-center">
+								<a href="{% url 'add-letter' %}" class="add-docs d-none d-sm-inline-block btn btn-sm shadow-sm">Add File</a>
+							</div>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col">
+				<div class="card border-left-primary shadow py-3">
+					<div class="card-body">
+						<div class="row no-gutters align-items-center">
+							<h3 class="text-center mb-5 ct">
+								S.O <br />
+								UPLOADED
+							</h3>
+							<div class="d-flex mr-2 justify-content-between px-5">
+								<div class="text-xs font-weight-bold text-success text-uppercase mb-1">today</div>
+								<div class="h5 mb-0 font-weight-bold text-gray-800">{{order_today}}</div>
+							</div>
+							<div class="container"><hr class="mt-3 mb-3" /></div>
+							<div class="d-flex mr-2 justify-content-between px-5">
+								<div class="text-xs font-weight-bold text-success text-uppercase mb-1">This Month</div>
+								<div class="h5 mb-0 font-weight-bold text-gray-800">{{order_month}}</div>
+							</div>
+							<div class="container"><hr class="mt-3 mb-3" /></div>
+
+							<div class="d-flex mr-2 justify-content-between px-5">
+								<div class="text-xs font-weight-bold text-success text-uppercase mb-1">This Year</div>
+								<div class="h5 mb-0 font-weight-bold text-gray-800">{{order_year}}</div>
+							</div>
+
+							{% if request.user.is_authenticated %}
+							<div class="container"><hr class="mt-3 mb-3" /></div>
+
+							<div class="container text-center">
+								<a href="{% url 'add-order' %}" class="add-docs d-none d-sm-inline-block btn btn-sm shadow-sm">Add File</a>
+							</div>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<div class="card shadow mb-4 mt-2">
+					<div class="dashboard-header card-header py-3 d-flex flex-row align-items-center justify-content-between">
+						<h4 class="font-weight-bold d-title">MOA/U/C</h4>
+						<a href="{% url 'moas' %}" class="db-docs d-none d-sm-inline-block btn btn-sm shadow-sm"> View All </a>
+					</div>
+					<div class="card-body">
+						<div class="table-responsive">
+							<table class="table datatable" width="100%" cellspacing="0">
+								<thead>
+									<tr>
+										<th>#</th>
+										<th>Title</th>
+										<th>Objective</th>
+										<th>Type</th>
+										<th>Created At</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									{% for moa in moas %}
+									<tr>
+										<td>{{moa.moau_no}}</td>
+										<td>{{moa.moau_title}}</td>
+										<td>{{moa.moau_objective|truncatechars:40}}</td>
+										<td>{{moa.moau_type}}</td>
+										<td>{{moa.created_at}}</td>
+										<td class="text-center">
+											<span class="pop dl-docs d-none d-sm-inline-block btn btn-sm shadow-sm"> Preview </span>
+											<div class="preview_item-details">
+												<h3 class="details_title">{{moa.moau_no}} - {{moa.moau_title}}</h3>
+												<p class="details_description">{{moa.moau_objective}}</p>
+												<ul class="details_info">
+													<li>File Type - <span>{{moa.moau_type}}</span></li>
+													<li>Approve Date - <span>{{moa.moau_approve_date}}</span></li>
+													<li>Notarized By - <span>{{moa.moau_notarized_by}}</span></li>
+													<li>Notarized Date - <span>{{moa.moau_notarized_date}}</span></li>
+													<li>Created At - <span>{{moa.created_at}}</span></li>
+													<li>Created By - <span>{{moa.created_by}}</span></li>
+													{% if moa.created_at|date:"F d, Y f a" == moa.modified_at|date:"F d, Y f a" %}
+													<li>Modified At - <span>Not yet modified</span></li>
+													<li>Modified By - <span>Not yet modified</span></li>
+													{% else %}
+													<li>Modified At - <span>{{moa.modified_at}}</span></li>
+													<li>Modified By - <span>{{moa.modified_by}}</span></li>
+													{% endif %}
+												</ul>
+											</div>
+										</td>
+									</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<div class="card shadow mb-4 mt-2">
+					<div class="dashboard-header card-header py-3 d-flex flex-row align-items-center justify-content-between">
+						<h4 class="font-weight-bold d-title">Event</h4>
+						<a href="{% url 'events' %}" class="db-docs d-none d-sm-inline-block btn btn-sm shadow-sm"> View All </a>
+					</div>
+					<div class="card-body">
+						<div class="table-responsive">
+							<table class="table datatable" width="100%" cellspacing="0">
+								<thead>
+									<tr>
+										<th>#</th>
+										<th>Name</th>
+										<th>Agenda</th>
+										<th>Date</th>
+										<th>Venue</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									{% for event in events %}
+									<tr>
+										<td>{{event.id}}</td>
+										<td>{{event.event_name}}</td>
+										<td>{{event.event_agenda}}</td>
+										<td>{{event.event_date}}</td>
+										<td>{{event.event_venue}}</td>
+										<td class="text-center">
+											<span class="pop dl-docs d-none d-sm-inline-block btn btn-sm shadow-sm"> Preview </span>
+											<div class="preview_item-details">
+												<h3 class="details_title">{{event.id}} - {{event.event_name}}</h3>
+												<p class="details_description">{{event.event_agenda}}</p>
+												<ul class="details_info">
+													<li>Date - <span>{{event.event_date}}</span></li>
+													<li>Venue - <span>{{event.event_venue}}</span></li>
+													<li>No of Participants - <span>{{event.no_participants}}</span></li>
+													<li>Agency - <span>{{event.impl_agency}}</span></li>
+													<li>Created At - <span>{{event.created_at}}</span></li>
+													<li>Created By - <span>{{event.created_by}}</span></li>
+													{% if event.created_at|date:"F d, Y f a" == event.modified_at|date:"F d, Y f a" %}
+													<li>Modified At - <span>Not yet modified</span></li>
+													<li>Modified By - <span>Not yet modified</span></li>
+													{% else %}
+													<li>Modified At - <span>{{event.modified_at}}</span></li>
+													<li>Modified By - <span>{{event.modified_by}}</span></li>
+													{% endif %}
+												</ul>
+
+												{% if event.attendance_file %}
+												<span class="file"><a href="{{event.attendance_file.url}}" target="_blank">View File</a></span>
+												{% endif %}
+											</div>
+										</td>
+									</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<div class="card shadow mb-4 mt-2">
+					<div class="dashboard-header card-header py-3 d-flex flex-row align-items-center justify-content-between">
+						<h4 class="font-weight-bold d-title">MEMORANDUM</h4>
+						<a href="{% url 'memorandums' %}" class="db-docs d-none d-sm-inline-block btn btn-sm shadow-sm"> View All </a>
+					</div>
+					<div class="card-body">
+						<div class="table-responsive">
+							<table class="table datatable" width="100%" cellspacing="0">
+								<thead>
+									<tr>
+										<th>#</th>
+										<th>Subject</th>
+										<th>Content</th>
+										<th>Date</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									{% for memo in memos %}
+									<tr>
+										<td>{{memo.memo_no}}</td>
+										<td>{{memo.memo_subject}}</td>
+										<td>{{memo.memo_content|truncatechars:40}}</td>
+										<td>{{memo.memo_date}}</td>
+										<td class="text-center">
+											<span class="pop dl-docs d-none d-sm-inline-block btn btn-sm shadow-sm"> Preview </span>
+											<div class="preview_item-details">
+												<h3 class="details_title">{{memo.memo_no}} - {{memo.memo_subject}}</h3>
+												<p class="details_description">{{memo.memo_content}}</p>
+												<ul class="details_info">
+													<li>Date - <span>{{memo.memo_date}}</span></li>
+
+													{% if memo.memo.to %}
+													<li>Memo To - <span>{{memo.memo_to}} {% if memo.memo_to_pos %}({{memo.memo_to_pos}}) {% endif %}</span></li>
+													{% endif %} {% if memo.memo_thru %}
+													<li>Memo Thru - <span>{{memo.memo_thru}} {% if memo.memo_thru_pos %}({{memo.memo_thru_pos}}) {% endif %}</span></li>
+													{% endif %} {% if memo.memo_from %}
+													<li>Memo From - <span>{{memo.memo_from}} {% if memo.memo_from_pos %} ({{memo.memo_from_pos}}){% endif %}</span></li>
+													{% endif %}
+													<li>Recommended By - <span>{{memo.memo_recomm_by}}</span></li>
+													<li>Approved By - <span>{{memo.memo_approved_by}}</span></li>
+													<li>Created At - <span>{{memo.created_at}}</span></li>
+													<li>Created By - <span>{{memo.created_by}}</span></li>
+													{% if memo.created_at|date:"F d, Y f a" == memo.modified_at|date:"F d, Y f a" %}
+													<li>Modified At - <span>Not yet modified</span></li>
+													<li>Modified By - <span>Not yet modified</span></li>
+													{% else %}
+													<li>Modified At - <span>{{memo.modified_at}}</span></li>
+													<li>Modified By - <span>{{memo.modified_by}}</span></li>
+													{% endif %}
+												</ul>
+
+												{% if memo.memo_file %}
+												<span class="file"><a href="{{memo.memo_file.url}}" target="_blank">View File</a></span>
+												{% endif %}
+											</div>
+										</td>
+									</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<div class="card shadow mb-4 mt-2">
+					<div class="dashboard-header card-header py-3 d-flex flex-row align-items-center justify-content-between">
+						<h4 class="font-weight-bold d-title">Communication Letter</h4>
+						<a href="{% url 'comm-letters' %}" class="db-docs d-none d-sm-inline-block btn btn-sm shadow-sm"> View All </a>
+					</div>
+					<div class="card-body">
+						<div class="table-responsive">
+							<table class="table datatable" width="100%" cellspacing="0">
+								<thead>
+									<tr>
+										<th>#</th>
+										<th>Subject</th>
+										<th>From</th>
+										<th>Approval</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									{% for letter in letters %}
+									<tr>
+										<td>{{letter.letter_no}}</td>
+										<td>{{letter.letter_subject}}</td>
+										<td>{{letter.letter_from}}</td>
+										<td>{{letter.letter_recom_approval}}</td>
+										<td class="text-center">
+											<span class="pop dl-docs d-none d-sm-inline-block btn btn-sm shadow-sm"> Preview </span>
+											<div class="preview_item-details">
+												<h3 class="details_title">{{letter.letter_no}} - {{letter.letter_subject}}</h3>
+												<ul class="details_info">
+													<li>To - <span>{{letter.letter_to}}</span></li>
+													<li>From - <span>{{letter.letter_from}}</span></li>
+													<li>Received By - <span>{{letter.letter_received_by}}</span></li>
+													<li>Received Date - <span>{{letter.letter_received_date}}</span></li>
+													<li>Noted By - <span>{{letter.letter_noted_by}}</span></li>
+													<li>Recommend Approval - <span>{{letter.letter_recom_approval}}</span></li>
+													<li>Approved By - <span>{{letter.letter_approved_by}}</span></li>
+													<li>Created At - <span>{{letter.created_at}}</span></li>
+													<li>Created By - <span>{{letter.created_by}}</span></li>
+													{% if letter.created_at|date:"F d, Y f a" == letter.modified_at|date:"F d, Y f a" %}
+													<li>Modified At - <span>Not yet modified</span></li>
+													<li>Modified By - <span>Not yet modified</span></li>
+													{% else %}
+													<li>Modified At - <span>{{letter.modified_at}}</span></li>
+													<li>Modified By - <span>{{letter.modified_by}}</span></li>
+													{% endif %}
+												</ul>
+
+												{% if letter.letter_file %}
+												<span class="file"><a href="{{letter.letter_file.url}}" target="_blank">View File</a></span>
+												{% endif %}
+											</div>
+										</td>
+									</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<div class="card shadow mb-4 mt-2">
+					<div class="dashboard-header card-header py-3 d-flex flex-row align-items-center justify-content-between">
+						<h4 class="font-weight-bold d-title">Special Order</h4>
+						<a href="{% url 'special-orders' %}" class="db-docs d-none d-sm-inline-block btn btn-sm shadow-sm"> View All </a>
+					</div>
+					<div class="card-body">
+						<div class="table-responsive">
+							<table class="table datatable" width="100%" cellspacing="0">
+								<thead>
+									<tr>
+										<th>#</th>
+										<th>Subject</th>
+										<th>Content</th>
+										<th>For</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									{% for order in orders %}
+									<tr>
+										<td>{{order.so_no}}</td>
+										<td>{{order.so_subject}}</td>
+										<td>{{order.so_content|truncatechars:40}}</td>
+										<td>{{order.so_for}}</td>
+										<td class="text-center">
+											<span class="pop dl-docs d-none d-sm-inline-block btn btn-sm shadow-sm"> Preview </span>
+											<div class="preview_item-details">
+												<h3 class="details_title">{{order.so_no}} - {{order.so_subject}}</h3>
+												<p class="details_description">{{order.so_content}}</p>
+												<ul class="details_info">
+													<li>Date - <span>{{order.so_date}}</span></li>
+													<li>Special Order For - <span>{{order.so_for}}</span></li>
+													<li>Signed By - <span>{{order.so_signedby}}</span></li>
+													<li>Created At - <span>{{order.created_at}}</span></li>
+													<li>Created By - <span>{{order.created_by}}</span></li>
+													{% if order.created_at|date:"F d, Y f a" == order.modified_at|date:"F d, Y f a" %}
+													<li>Modified At - <span>Not yet modified</span></li>
+													<li>Modified By - <span>Not yet modified</span></li>
+													{% else %}
+													<li>Modified At - <span>{{order.modified_at}}</span></li>
+													<li>Modified By - <span>{{order.modified_by}}</span></li>
+													{% endif %}
+												</ul>
+
+												{% if order.so_file %}
+												<span class="file"><a href="{{order.so_file.url}}" target="_blank">View File</a></span>
+												{% endif %}
+											</div>
+										</td>
+									</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="preview_popup">
+		<div class="preview_popup-inner">
+			<div class="preview_popup-content grid">
+				<span class="preview_popup-close">
+					<i class="bx bx-x"></i>
+				</span>
+				<div class="preview_popup-info">
+					<div class="preview_popup-body">
+						<h3 class="details_title">Try - Try</h3>
+						<p class="details_description">Try</p>
+						<ul class="details_info">
+							<li>Approve Date - <span>Tr</span></li>
+							<li>Notarized By - <span>Try</span></li>
+							<li>Notarized Date - <span>Try</span></li>
+							<li>Created At - <span>Try</span></li>
+							<li>Created By - <span>Try</span></li>
+							<li>Modified At - <span>Try</span></li>
+							<li>Modified By - <span>Try</span></li>
+						</ul>
+						<span><a href="Try">View File</a></span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</main>
+
+<script>
+	document.addEventListener("click", (e) => {
+		if (e.target.classList.contains("pop")) {
+			togglePortfolioPopup();
+
+			portfolioItemDetails(e.target.parentElement);
+			// console.log(e.target.parentElement);
+		}
+	});
+
+	function togglePortfolioPopup() {
+		document.querySelector(".preview_popup").classList.toggle("open");
+	}
+
+	document.querySelector(".preview_popup-close").addEventListener("click", togglePortfolioPopup);
+
+	function portfolioItemDetails(portfolioItem) {
+		document.querySelector(".preview_popup-body").innerHTML = portfolioItem.querySelector(".preview_item-details").innerHTML;
+	}
+</script>
+
+<!-- Load Swiper JS -->
+{% block js %}
+<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+<script src="{% static 'js/home-simple-datatables.js' %}"></script>
+<script src="{% static 'js/tinymce.min.js' %}"></script>
+<script src="{% static 'js/datatables.js' %}"></script>
+{% endblock js %} {% endblock content %}

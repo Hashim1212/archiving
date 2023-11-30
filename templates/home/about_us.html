@@ -1,0 +1,146 @@
+<!-- Extends to Main.html -->
+{% extends 'index.html' %}
+
+<!-- Load static -->
+{% load static %}
+
+<!-- Main Content -->
+{% block content %}
+
+<main>
+	<section id="about" class="about">
+		<div class="container" data-aos="fade-up">
+			<div class="row">
+				<div class="col-lg-4" data-aos="fade-left" data-aos-delay="100">
+					<img src="{% static 'images/WESMAARRDEC.png' %}" class="img-fluid" alt="" />
+				</div>
+				<div class="col-lg-8 pt-4 content">
+					<h3>WESMAARRDEC</h3>
+					<p class="fst-italic">
+						Twenty years ago, a group of 12 government agencies in Region 9 agreed to jointly undertake the establishment and management of the
+						regional sectoral research and development consortium for Western Mindanao. The group is called Western Mindanao Agriculture and Resources
+						Research and Development Consortium (WESMAARRDEC), with the Department of Agriculture IX (DA-IX) as the host agency from 1987-1996. On
+						March 01, 1996, the stewardship of the consortium was passed-on to Philippine Coconut Authority-Zamboanga Research Center (PCA-ZRC). After
+						four years, Western Mindanao State University (WMSU) is the one who hosted the consortium up to the present. Since its founding more than
+						28 years ago, WESMAARRDEC and its 23 member organizations have made significant advancements in coordinating regional research,
+						development, and extension activities. These include planning, monitoring, and evaluating priority programs and related activities,
+						coordinating R&D initiatives, and giving Western Mindanao's AANR sectors easy access to current technologies for increasing productivity
+						and fostering sustainable development. In 2015, WESMARRDEC was renamed WESMAARRDEC as the result of unification of Aquatic and Agriculture
+						R&D Institutions into the consortium structure.
+					</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section id="testimonials" class="testimonials section-bg">
+		<div class="container" data-aos="fade-up">
+			<div class="section-title">
+				<h2>The System</h2>
+				<p>
+					Archiving web-based application provides administrators or owners with an easy waytomanageall the other related details of their users. We
+					guarantee that our web-based application will beflexibleanduser-friendly, making it easier for different users to manage. The list of
+					features of the applicationincludesAdministration which allows the management of users, monthly deletion of existing users,
+					andexistingfiles.The application also enables the upload and download of files. On the other hand, the User Panel permitstheupload and
+					download of files from the web-based application and searching for recent file uploads.
+				</p>
+			</div>
+		</div>
+	</section>
+
+	<section id="testimonials" class="testimonials">
+		<div class="container" data-aos="fade-up">
+			<div class="section-title">
+				<h2>Team Behind This Project</h2>
+			</div>
+
+			<div class="testimonials-slider swiper" data-aos="fade-up" data-aos-delay="100">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide">
+						<div class="testimonial-item">
+							<img src="{% static 'images/Decierdo.jpg' %}" class="testimonial-img" alt="" />
+							<h3>Analyn Decierdo</h3>
+							<h4>Project Manager</h4>
+						</div>
+					</div>
+
+					<div class="swiper-slide">
+						<div class="testimonial-item">
+							<img src="{% static 'images/Ituralde.jpg' %}" class="testimonial-img" alt="" />
+							<h3>Shariznelle Ituralde</h3>
+							<h4>UI/UX Designer</h4>
+						</div>
+					</div>
+
+					<div class="swiper-slide">
+						<div class="testimonial-item">
+							<img src="{% static 'images/Angsa.jpg' %}" class="testimonial-img" alt="" />
+							<h3>Hashim Mahdi Angsa</h3>
+							<h4>Developer</h4>
+						</div>
+					</div>
+
+					<div class="swiper-slide">
+						<div class="testimonial-item">
+							<img src="{% static 'images/Ramos.jpg' %}" class="testimonial-img" alt="" />
+							<h3>Elvin Ramos</h3>
+							<h4>Business Analysist</h4>
+						</div>
+					</div>
+					<div class="swiper-slide">
+						<div class="testimonial-item">
+							<img src="{% static 'images/Panga.jpg' %}" class="testimonial-img" alt="" />
+							<h3>Fhadzrin Panga</h3>
+							<h4>Quality Assurance</h4>
+						</div>
+					</div>
+				</div>
+				<div class="swiper-pagination"></div>
+			</div>
+		</div>
+		<div class="container-xxl py-5 justify-content-md-center">
+			<div class="container px-lg-7">
+				<div class="row justify-content-md-center">
+					<div class="col-lg-5">
+						<div class="section-title position-relative mb-1 pb-3" style="text-align: center;">
+							<h5 class="mb-2">Catadman, Jason A.</h5>
+							<h6 class="mb-1">Software Engineering Instructor</h6>
+						</div>
+					</div>
+					<div class="col-lg-5">
+						<div class="section-title position-relative mb-1 pb-3" style="text-align: center;">
+							<h5 class="mb-2">Gregana, Pauleen</h5>
+							<h6 class="mb-1">IT Elective 3 Instructor</h6>
+				</div>
+	</section>
+</main>
+<script src="{% static 'js/swiper-bundle.min.js' %}"></script>
+<script>
+	new Swiper(".testimonials-slider", {
+		speed: 600,
+		loop: true,
+		autoplay: {
+			delay: 5000,
+			disableOnInteraction: false,
+		},
+		slidesPerView: "auto",
+		pagination: {
+			el: ".swiper-pagination",
+			type: "bullets",
+			clickable: true,
+			dynamicBullets: true,
+		},
+		breakpoints: {
+			320: {
+				slidesPerView: 1,
+				spaceBetween: 20,
+			},
+
+			1200: {
+				slidesPerView: 4,
+				spaceBetween: 10,
+			},
+		},
+	});
+</script>
+{% endblock content %}

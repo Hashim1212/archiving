@@ -1,0 +1,191 @@
+<!-- Extends to Main.html -->
+{% extends 'index.html' %}
+
+<!-- Load static -->
+{% load static %} {% load widget_tweaks %}
+
+<!-- Load Datatables CSS -->
+{% block css %}
+<link
+	rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.css"
+	integrity="sha256-b88RdwbRJEzRx95nCuuva+hO5ExvXXnpX+78h8DjyOE="
+	crossorigin="anonymous"
+/>
+
+<link rel="stylesheet" href="{% static 'css/datatables.css' %}" />
+{% endblock css %}
+
+<!-- Main Content -->
+{% block content %}
+<main>
+	<div class="container">
+		<h2 class="head-text">SPECIAL ORDERS ARCHIVING</h2>
+
+		<div class="row g-1">
+			<div class="col-10">
+				<div class="card shadow mb-4 mt-5">
+					<div class="dashboard-header card-header py-3 d-flex flex-row align-items-center justify-content-between">
+						<h4 class="font-weight-bold archives">Archives ({{orders.count}})</h4>
+
+						<div>
+							<a href="{% url 'backup-special-orders' %}" class="i-docs d-none d-sm-inline-block btn btn-sm shadow-sm">
+								<i class="bx bx-history"></i>
+							</a>
+							<a href="{% url 'add-order' %}" class="add-docs d-none d-sm-inline-block btn btn-sm shadow-sm"> Upload Document </a>
+						</div>
+					</div>
+					<div class="card-body">
+						<div class="table-responsive">
+							<table class="table datatable" width="100%" cellspacing="0">
+								<thead>
+									<tr>
+										<th>Order No.</th>
+										<th>Date</th>
+										<th>Subject</th>
+										<th>Content</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									{% for order in orders %}
+									<tr>
+										<td>{{order.so_no}}</td>
+										<td>{{order.so_date}}</td>
+										<td>{{order.so_subject}}</td>
+										<td>{{order.so_content|truncatechars:30}}</td>
+										<td class="text-center">
+											<span class="pop dl-docs d-none d-sm-inline-block btn btn-sm shadow-sm"> Preview </span>
+											<a href="{% url 'edit-order' order.so_no %}" class="dl-docs d-none d-sm-inline-block btn btn-sm shadow-sm"> Edit </a>
+											<a href="{% url 'delete-order' order.so_no %}" class="del-docs d-none d-sm-inline-block btn btn-sm shadow-sm"> Delete </a>
+											<div class="preview_item-details">
+												<h3 class="details_title">{{order.so_no}} - {{order.so_subject}}</h3>
+												<p class="details_description">{{order.so_content}}</p>
+												<ul class="details_info">
+													<li>Date - <span>{{order.so_date}}</span></li>
+													<li>Special Order For - <span>{{order.so_for}}</span></li>
+													<li>Signed By - <span>{{order.so_signedby}}</span></li>
+													<li>Created At - <span>{{order.created_at}}</span></li>
+													<li>Created By - <span>{{order.created_by}}</span></li>
+													{% if order.created_at|date:"F d, Y f a" == order.modified_at|date:"F d, Y f a" %}
+													<li>Modified At - <span>Not yet modified</span></li>
+													<li>Modified By - <span>Not yet modified</span></li>
+													{% else %}
+													<li>Modified At - <span>{{order.modified_at}}</span></li>
+													<li>Modified By - <span>{{order.modified_by}}</span></li>
+													{% endif %}
+												</ul>
+
+												{% if order.so_file %}
+												<span class="file"><a href="{{order.so_file.url}}" target="_blank">View File</a></span>
+												{% endif %}
+											</div>
+										</td>
+									</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-2">
+				<div class="mt-5 ms-2">
+					<div class="row g-1 align-items-center">
+						<h3 class="text-center mt-1">Filters</h3>
+						<form action="{% url 'special-orders' %}" method="GET" id="searchForm">
+							<div class="mb-3">{% render_field form.so_subject__icontains placeholder="Order Subject" class+="form-control" %}</div>
+
+							<div class="mb-3">{% render_field form.so_content__icontains placeholder="Order Content" class+="form-control" %}</div>
+
+							<div class="mb-3">{% render_field form.so_for__icontains placeholder="Order For" class+="form-control" %}</div>
+
+							<div class="mb-3">{% render_field form.so_signedby__icontains placeholder="Signed By" class+="form-control" %}</div>
+
+							<div class="mb-3">{% render_field form.so_date placeholder="Order Date" class+="form-control" autocomplete="off" %}</div>
+
+							<!-- <div>{{form.moau_type}}</div>d -->
+
+							<!-- <div>{{form.moau_approve_date}}</div> -->
+
+							<a class="btn btn-danger" href="{% url 'special-orders' %}">Reset</a>
+							<input type="submit" value="Submit" class="btn btn-primary" />
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="preview_popup">
+		<div class="preview_popup-inner">
+			<div class="preview_popup-content grid">
+				<span class="preview_popup-close">
+					<i class="bx bx-x"></i>
+				</span>
+				<div class="preview_popup-info">
+					<div class="preview_popup-body">
+						<h3 class="details_title">Try - Try</h3>
+						<p class="details_description">Try</p>
+						<ul class="details_info">
+							<li>Approve Date - <span>Tr</span></li>
+							<li>Notarized By - <span>Try</span></li>
+							<li>Notarized Date - <span>Try</span></li>
+							<li>Created At - <span>Try</span></li>
+							<li>Created By - <span>Try</span></li>
+							<li>Modified At - <span>Try</span></li>
+							<li>Modified By - <span>Try</span></li>
+						</ul>
+						<span><a href="Try">View File</a></span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</main>
+
+<script
+	src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+	crossorigin="anonymous"
+></script>
+
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js"
+	integrity="sha256-/7FLTdzP6CfC1VBAj/rsp3Rinuuu9leMRGd354hvk0k="
+	crossorigin="anonymous"
+></script>
+
+<script>
+	document.addEventListener("click", (e) => {
+		if (e.target.classList.contains("pop")) {
+			togglePortfolioPopup();
+
+			portfolioItemDetails(e.target.parentElement);
+			// console.log(e.target.parentElement);
+		}
+	});
+
+	function togglePortfolioPopup() {
+		document.querySelector(".preview_popup").classList.toggle("open");
+	}
+
+	document.querySelector(".preview_popup-close").addEventListener("click", togglePortfolioPopup);
+
+	function portfolioItemDetails(portfolioItem) {
+		document.querySelector(".preview_popup-body").innerHTML = portfolioItem.querySelector(".preview_item-details").innerHTML;
+	}
+
+	$(function () {
+		$("#id_so_date").datepicker({
+			format: "yyyy-mm-dd",
+		});
+	});
+</script>
+
+<!-- Load Datatables JS -->
+{% block js %}
+<script src="{% static 'js/simple-datatables.js' %}"></script>
+<script src="{% static 'js/tinymce.min.js' %}"></script>
+<script src="{% static 'js/datatables.js' %}"></script>
+{% endblock js %} {% endblock content %}

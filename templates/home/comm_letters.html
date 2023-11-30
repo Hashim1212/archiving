@@ -1,0 +1,172 @@
+<!-- Extends to Main.html -->
+{% extends 'index.html' %}
+
+<!-- Load static -->
+{% load static %} {% load widget_tweaks %}
+
+<!-- Load Datatables CSS -->
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/datatables.css' %}" />
+{% endblock css %}
+
+<!-- Main Content -->
+{% block content %}
+<main>
+	<div class="container">
+		<h2 class="head-text">COMMUNICATION LETTERS ARCHIVING</h2>
+
+		<div class="row g-1">
+			<div class="col-10">
+				<div class="card shadow mb-4 mt-5">
+					<div class="dashboard-header card-header py-3 d-flex flex-row align-items-center justify-content-between">
+						<h4 class="font-weight-bold archives">Archives ({{letters.count}})</h4>
+						<div>
+							<a href="{% url 'backup-comm-letters' %}" class="i-docs d-none d-sm-inline-block btn btn-sm shadow-sm">
+								<i class="bx bx-history"></i>
+							</a>
+							<a href="{% url 'add-letter' %}" class="add-docs d-none d-sm-inline-block btn btn-sm shadow-sm"> Upload Document </a>
+						</div>
+					</div>
+					<div class="card-body">
+						<div class="table-responsive">
+							<table class="table datatable" width="100%" cellspacing="0">
+								<thead>
+									<tr>
+										<th>Letter No.</th>
+										<th>Subject</th>
+										<th>To</th>
+										<th>From</th>
+										<th>Received Date</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									{% for letter in letters %}
+									<tr>
+										<td>{{letter.letter_no}}</td>
+										<td>{{letter.letter_subject}}</td>
+										<td>{{letter.letter_to}}</td>
+										<td>{{letter.letter_from}}</td>
+										<td>{{letter.letter_received_date}}</td>
+										<td class="text-center">
+											<span class="pop dl-docs d-none d-sm-inline-block btn btn-sm shadow-sm"> Preview </span>
+											<a href="{% url 'edit-letter' letter.letter_no %}" class="dl-docs d-none d-sm-inline-block btn btn-sm shadow-sm"> Edit </a>
+											<a href="{% url 'delete-letter' letter.letter_no %}" class="del-docs d-none d-sm-inline-block btn btn-sm shadow-sm"> Delete </a>
+											<div class="preview_item-details">
+												<h3 class="details_title">{{letter.letter_no}} - {{letter.letter_subject}}</h3>
+												<ul class="details_info">
+													<li>To - <span>{{letter.letter_to}}</span></li>
+													<li>From - <span>{{letter.letter_from}}</span></li>
+													<li>Received By - <span>{{letter.letter_received_by}}</span></li>
+													<li>Received Date - <span>{{letter.letter_received_date}}</span></li>
+													<li>Noted By - <span>{{letter.letter_noted_by}}</span></li>
+													<li>Recommend Approval - <span>{{letter.letter_recom_approval}}</span></li>
+													<li>Approved By - <span>{{letter.letter_approved_by}}</span></li>
+													<li>Created At - <span>{{letter.created_at}}</span></li>
+													<li>Created By - <span>{{letter.created_by}}</span></li>
+													{% if letter.created_at|date:"F d, Y f a" == letter.modified_at|date:"F d, Y f a" %}
+													<li>Modified At - <span>Not yet modified</span></li>
+													<li>Modified By - <span>Not yet modified</span></li>
+													{% else %}
+													<li>Modified At - <span>{{letter.modified_at}}</span></li>
+													<li>Modified By - <span>{{letter.modified_by}}</span></li>
+													{% endif %}
+												</ul>
+
+												{% if letter.letter_file %}
+												<span class="file"><a href="{{letter.letter_file.url}}" target="_blank">View File</a></span>
+												{% endif %}
+											</div>
+										</td>
+									</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-2">
+				<div class="mt-5 ms-2">
+					<div class="row g-1 align-items-center">
+						<h3 class="text-center mt-1">Filters</h3>
+						<form action="{% url 'comm-letters' %}" method="GET" id="searchForm">
+							<div class="mb-3">{% render_field form.letter_subject__icontains placeholder="Letter Subject" class+="form-control" %}</div>
+
+							<div class="mb-3">{% render_field form.letter_to__icontains placeholder="Letter To" class+="form-control" %}</div>
+
+							<div class="mb-3">{% render_field form.letter_from__icontains placeholder="Letter From" class+="form-control" %}</div>
+
+							<div class="mb-3">{% render_field form.letter_noted_by__icontains placeholder="Noted By" class+="form-control" %}</div>
+
+							<div class="mb-3">{% render_field form.letter_approved_by__icontains placeholder="Approved By" class+="form-control" %}</div>
+							<!-- <div>{{form.moau_type}}</div>d -->
+
+							<!-- <div>{{form.moau_approve_date}}</div> -->
+
+							<a class="btn btn-danger" href="{% url 'comm-letters' %}">Reset</a>
+							<input type="submit" value="Submit" class="btn btn-primary" />
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="preview_popup">
+		<div class="preview_popup-inner">
+			<div class="preview_popup-content grid">
+				<span class="preview_popup-close">
+					<i class="bx bx-x"></i>
+				</span>
+				<div class="preview_popup-info">
+					<div class="preview_popup-body">
+						<h3 class="details_title">The services provide for design</h3>
+						<p class="details_description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta, at.</p>
+						<ul class="details_info">
+							<li>Created - <span>Dec 20, 2023</span></li>
+							<li>Technologies - <span>HTML CSS</span></li>
+							<li>Role - <span>Frontend</span></li>
+							<li>
+								View - <span><a href="#">www.domain.com</a></span>
+							</li>
+							<li>Created - <span>January 26, 2023</span></li>
+							<li>Type - <span>Memo</span></li>
+							<li>Role - <span>Frontend</span></li>
+							<li>
+								View - <span><a href="#">www.domain.com</a></span>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</main>
+<script>
+	document.addEventListener("click", (e) => {
+		if (e.target.classList.contains("pop")) {
+			togglePortfolioPopup();
+
+			portfolioItemDetails(e.target.parentElement);
+			// console.log(e.target.parentElement);
+		}
+	});
+
+	function togglePortfolioPopup() {
+		document.querySelector(".preview_popup").classList.toggle("open");
+	}
+
+	document.querySelector(".preview_popup-close").addEventListener("click", togglePortfolioPopup);
+
+	function portfolioItemDetails(portfolioItem) {
+		document.querySelector(".preview_popup-body").innerHTML = portfolioItem.querySelector(".preview_item-details").innerHTML;
+	}
+</script>
+
+<!-- Load Datatables JS -->
+{% block js %}
+<script src="{% static 'js/simple-datatables.js' %}"></script>
+<script src="{% static 'js/tinymce.min.js' %}"></script>
+<script src="{% static 'js/datatables.js' %}"></script>
+{% endblock js %} {% endblock content %}

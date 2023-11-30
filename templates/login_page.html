@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<title>WESMAARRDEC</title>
+
+		<link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+
+		<link rel="icon" href="{% static 'images/WESMAARRDEC.png' %}" type="image/x-icon" />
+		<link rel="stylesheet" href="{% static 'css/cred.css' %}" type="text/css" />
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" />
+
+		<style>
+			.modal {
+				display: none;
+				position: fixed;
+				z-index: 1;
+				padding-top: 100px;
+				left: 0;
+				top: 0;
+				width: 100%;
+				height: 100%;
+				overflow: auto;
+				background-color: rgb(0, 0, 0);
+				background-color: rgba(0, 0, 0, 0.4);
+			}
+
+			.modal-content {
+				color: #008000;
+				background: white;
+				margin: auto;
+				padding: 30px;
+				width: 40%;
+			}
+
+			.close {
+				color: #008000;
+				float: right;
+				font-size: 28px;
+				font-weight: bold;
+			}
+
+			.close:hover,
+			.close:focus {
+				color: #000;
+				text-decoration: none;
+				cursor: pointer;
+			}
+
+			@media (max-width: 500px) {
+				.modal-content {
+					color: #008000;
+					background: white;
+					margin: auto;
+					padding: 30px;
+					width: 80%;
+				}
+			}
+		</style>
+	</head>
+
+	<body>
+		<section class="home-section">
+			<div class="header">
+				<div class="container">
+					<a href="{% url 'home' %}" class="header_logo">
+						<img src="{% static 'images/WESMAARRDEC.png' %}" alt="WESMAARRDEC Logo" />
+						<h1>
+							WESMAARRDEC <br />
+							<span>Archiving Management System</span>
+						</h1>
+					</a>
+				</div>
+			</div>
+		</section>
+
+		<div class="container">
+			<div class="wrapper">
+				<div class="title"><span>Log In</span></div>
+
+				<!-- <span class="mb-0 text-muted" style="font-weight: 600">
+					{% if messages %} {% for message in messages %} {{message}} {% endfor %} {% endif %}
+				</span> -->
+
+				<form method="post">
+					{% csrf_token %}
+					<div class="row">
+						<i class="bx bx-user"></i>
+						<input class="form-control" type="text" id="username" name="username" value="{{data.username}}" autocomplete="off" />
+						<label for="username"></label>
+					</div>
+
+					<div class="row">
+						<i class="bx bx-lock-alt"></i>
+						<input class="form-control" type="password" id="password" name="password" value="{{data.password}}" />
+						<label for="password"></label>
+					</div>
+
+					<!-- <div class="frgt_pass">
+						<a href="">Forgot Password?</a>
+					</div> -->
+
+					<div class="row button">
+						<input type="submit" value="Log In" class="btn" />
+					</div>
+					<!-- <h4><a href="">Guest</a></h4> -->
+					<div class="signup">New to this site?<a href="#" id="myBtn"> Reach out to Us </a></div>
+				</form>
+			</div>
+		</div>
+
+		<div id="myModal" class="modal">
+			<div class="modal-content">
+				<span class="close">&times;</span>
+				<h5>wesmaarrdec@gmail.com</h5>
+				<h5>(062) 991 5087 | (062) 955 8298</h5>
+				<h5>WMSU, Normal Road, Baliwasan, Zamboanga City</h5>
+			</div>
+		</div>
+
+		<script>
+			var modal = document.getElementById("myModal");
+
+			var btn = document.getElementById("myBtn");
+
+			var span = document.getElementsByClassName("close")[0];
+
+			btn.onclick = function () {
+				modal.style.display = "block";
+			};
+
+			span.onclick = function () {
+				modal.style.display = "none";
+			};
+
+			window.onclick = function (event) {
+				if (event.target == modal) {
+					modal.style.display = "none";
+				}
+			};
+		</script>
+	</body>
+
+	<!-- <body>
+		<div class="auth">
+			<div class="bg"></div>
+			<div class="bg bg2"></div>
+			<div class="bg b3"></div>
+			<div class="card">
+				<div class="auth_header text-center">
+					<a href="{% url 'home' %}"><img style="height: 25%; width: 25%" src="{% static 'images/WESMAARRDEC.png' %}" alt="WESMAARRDEC Logo" /></a>
+					<h3>WESMAARRDEC</h3>
+				</div>
+
+				{% if messages %} {% for message in messages %}
+				<p style="text-align: center; justify-content: center; color: red">{{ message }}</p>
+				{% endfor %} {% endif %}
+				<form action="" method="POST" autocomplete="off" class="form auth_form">
+					{% csrf_token %}
+					<div class="form_field">
+						<label for="">Username</label>
+						<input class="input input-text" id="username" type="text" name="username" value="{{data.username}}" />
+					</div>
+
+					<div class="form_field">
+						<label for="">Password</label>
+						<input class="input input-password" id="password" type="password" name="password" />
+					</div>
+
+					<div class="auth_actions text-center">
+						<button class="btn btn-sub btn-lg" type="submit">Login</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</body> -->
+</html>

@@ -1,0 +1,120 @@
+<!-- Extends to Main.html -->
+{% extends 'index.html' %}
+
+<!-- Load static -->
+{% load static %}
+
+<!-- Load Datepicker CSS -->
+{% block css %}
+<link
+	rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.css"
+	integrity="sha256-b88RdwbRJEzRx95nCuuva+hO5ExvXXnpX+78h8DjyOE="
+	crossorigin="anonymous"
+/>
+{% endblock css %}
+
+<!-- Main Content -->
+{% block content %}
+<main>
+	<div class="letter_formwrapper">
+		<div class="create-room layout">
+			<div class="formcontainer">
+				<div class="form__box letter_form_box">
+					<div class="form__top">
+						<div class="room__topleft">
+							<a href="{{request.META.HTTP_REFERER}}">
+								<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+									<title>arrow-left</title>
+									<path
+										d="M13.723 2.286l-13.723 13.714 13.719 13.714 1.616-1.611-10.96-10.96h27.625v-2.286h-27.625l10.965-10.965-1.616-1.607z"
+									></path>
+								</svg>
+							</a>
+						</div>
+						<h3>Upload Letter</h3>
+					</div>
+					<div class="layout__body">
+						{% if messages %} {% for message in messages %} {% if message.tags == 'success' %}
+						<p style="text-align: center; justify-content: center; color: green">{{ message }}</p>
+						{% else %}
+						<p style="text-align: center; justify-content: center; color: red">{{ message }}</p>
+						{% endif %} {% endfor %} {% endif %}
+
+						<form action="" class="modalform" method="POST" enctype="multipart/form-data">
+							{% csrf_token %}
+							<div class="modalform__group">
+								<label for="letter_no">Letter No:</label>
+								<input type="text" id="letter_no" name="letter_no" value="{{data.letter_no}}" />
+							</div>
+							<div class="modalform__group">
+								<label for="letter_file">Letter File:</label>
+								{{form.letter_file}}
+							</div>
+							<div class="modalform__group">
+								<label for="letter_subject">Subject:</label>
+								<input type="text" id="letter_subject" name="letter_subject" value="{{data.letter_subject}}" />
+							</div>
+							<div class="modalform__group">
+								<label for="letter_to">Letter To:</label>
+								<input type="text" id="letter_to" name="letter_to" value="{{data.letter_to}}" />
+							</div>
+							<div class="modalform__group">
+								<label for="letter_from">Letter From:</label>
+								<input type="text" id="letter_from" name="letter_from" value="{{data.letter_from}}" />
+							</div>
+							<div class="modalform__group">
+								<label for="letter_received_by">Received By:</label>
+								<input type="text" id="letter_received_by" name="letter_received_by" value="{{data.letter_received_by}}" />
+							</div>
+							<div class="modalform__group">
+								<label for="letter_received_date">Received Date:</label>
+								{{form.letter_received_date}}
+							</div>
+							<div class="modalform__group">
+								<label for="letter_noted_by">Noted By:</label>
+								<input type="text" id="letter_noted_by" name="letter_noted_by" value="{{data.letter_noted_by}}" />
+							</div>
+							<div class="modalform__group">
+								<label for="letter_recom_approval">Recommend Approval:</label>
+								<input type="text" id="letter_recom_approval" name="letter_recom_approval" value="{{data.letter_recom_approval}}" />
+							</div>
+							<div class="modalform__group">
+								<label for="letter_approved_by">Approved By:</label>
+								<input type="text" id="letter_approved_by" name="letter_approved_by" value="{{data.letter_approved_by}}" />
+							</div>
+
+							<div class="modalform__action">
+								<a class="modalbtn modalbtn--dark" href="{{request.META.HTTP_REFERER}}">Cancel</a>
+								<button class="modalbtn modalbtn--main" type="submit">Upload Letter</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</main>
+
+<!-- Load Datepicker JS -->
+{% block js %}
+<script
+	src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+	crossorigin="anonymous"
+></script>
+
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js"
+	integrity="sha256-/7FLTdzP6CfC1VBAj/rsp3Rinuuu9leMRGd354hvk0k="
+	crossorigin="anonymous"
+></script>
+
+<script>
+	$(function () {
+		$("#id_letter_received_date").datepicker({
+			format: "yyyy-mm-dd",
+		});
+	});
+</script>
+{% endblock js %} {% endblock content %}

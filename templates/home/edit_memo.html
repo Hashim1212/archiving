@@ -1,0 +1,132 @@
+<!-- Extends to Main.html -->
+{% extends 'index.html' %}
+
+<!-- Load static -->
+{% load static %}
+
+<!-- Load Datepicker CSS -->
+{% block css %}
+<link
+	rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.css"
+	integrity="sha256-b88RdwbRJEzRx95nCuuva+hO5ExvXXnpX+78h8DjyOE="
+	crossorigin="anonymous"
+/>
+{% endblock css %}
+
+<!-- Main Content -->
+{% block content %}
+<main>
+	<div class="memowrapper">
+		<div class="create-room layout">
+			<div class="formcontainer">
+				<div class="form__box memo_form_box">
+					<div class="form__top">
+						<div class="room__topleft">
+							<a href="{% url 'memorandums' %}">
+								<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+									<title>arrow-left</title>
+									<path
+										d="M13.723 2.286l-13.723 13.714 13.719 13.714 1.616-1.611-10.96-10.96h27.625v-2.286h-27.625l10.965-10.965-1.616-1.607z"
+									></path>
+								</svg>
+							</a>
+						</div>
+						<h3>Edit Memo</h3>
+					</div>
+					<div class="layout__body">
+						{% if messages %} {% for message in messages %} {% if message.tags == 'success' %}
+						<p style="text-align: center; justify-content: center; color: green">{{ message }}</p>
+						{% else %}
+						<p style="text-align: center; justify-content: center; color: red">{{ message }}</p>
+						{% endif %} {% endfor %} {% endif %}
+
+						<form action="" class="modalform" method="POST" enctype="multipart/form-data">
+							{% csrf_token %}
+							<div class="modalform__group">
+								<label for="memo_no">Memo No:</label>
+								<input type="text" id="memo_no" name="memo_no" value="{{memo.memo_no}}" />
+							</div>
+							<div class="modalform__group">
+								<label for="memo_date">Memo Date:</label>
+								{{form.memo_date}}
+							</div>
+							<div class="modalform__group">
+								<label for="memo_file">Memo File:</label>
+								{{form.memo_file}}
+							</div>
+							<div class="modalform__group">
+								<label for="memo_subject">Subject:</label>
+								<input type="text" id="memo_subject" name="memo_subject" value="{{memo.memo_subject}}" />
+							</div>
+							<div class="modalform__group">
+								<label for="memo_content">Content:</label>
+								<textarea name="memo_content" cols="40" rows="10" id="memo_content">{{memo.memo_content}}</textarea>
+							</div>
+							<div class="modalform__group">
+								<label for="memo_to">Memo To:</label>
+								<input type="text" id="memo_to" name="memo_to" value="{{memo.memo_to}}" />
+							</div>
+							<div class="modalform__group">
+								<label for="memo_to_pos">Memo To Pos:</label>
+								<input type="text" id="memo_to_pos" name="memo_to_pos" value="{{memo.memo_to_pos}}" />
+							</div>
+							<div class="modalform__group">
+								<label for="memo_thru">Memo Thru:</label>
+								<input type="text" id="memo_thru" name="memo_thru" value="{{memo.memo_thru}}" />
+							</div>
+							<div class="modalform__group">
+								<label for="memo_thru_pos">Memo Thru Pos:</label>
+								<input type="text" id="memo_thru_pos" name="memo_thru_pos" value="{{memo.memo_thru_pos}}" />
+							</div>
+							<div class="modalform__group">
+								<label for="memo_from">Memo From:</label>
+								<input type="text" id="memo_from" name="memo_from" value="{{memo.memo_from}}" />
+							</div>
+							<div class="modalform__group">
+								<label for="memo_from_pos">Memo From Pos:</label>
+								<input type="text" id="memo_from_pos" name="memo_from_pos" value="{{memo.memo_from_pos}}" />
+							</div>
+							<div class="modalform__group">
+								<label for="memo_recomm_by">Recommended By:</label>
+								<input type="text" id="memo_recomm_by" name="memo_recomm_by" value="{{memo.memo_recomm_by}}" />
+							</div>
+							<div class="modalform__group">
+								<label for="memo_approved_by">Approved By:</label>
+								<input type="text" id="memo_approved_by" name="memo_approved_by" value="{{memo.memo_approved_by}}" />
+							</div>
+
+							<div class="modalform__action">
+								<a class="modalbtn modalbtn--dark" href="{% url 'memorandums' %}">Cancel</a>
+								<button class="modalbtn modalbtn--main" type="submit">Update Memo</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</main>
+
+<!-- Load Datepicker JS -->
+{% block js %}
+<script
+	src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+	crossorigin="anonymous"
+></script>
+
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js"
+	integrity="sha256-/7FLTdzP6CfC1VBAj/rsp3Rinuuu9leMRGd354hvk0k="
+	crossorigin="anonymous"
+></script>
+
+<script>
+	$(function () {
+		$("#id_memo_date").datepicker({
+			format: "yyyy-mm-dd",
+		});
+	});
+</script>
+{% endblock js %} {% endblock content %}

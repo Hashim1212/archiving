@@ -1,0 +1,101 @@
+<!-- Extends to Main.html -->
+{% extends 'index.html' %}
+
+<!-- Load static -->
+{% load static %}
+
+<!-- Main Content -->
+{% block content %}
+<main>
+	<div class="container">
+		<h2 class="head-text">USER PROFILE</h2>
+
+		<div class="row pt-5">
+			<!-- LEFT CONTENT -->
+			<div class="col-lg-4 pt-3">
+				<div class="ucard text-center">
+					<div class="ucard__body dev">
+						{% if user.avatar != '' %}
+						<img class="avatar--lg" src="{{user.avatar.url}}" />
+						{% endif %} {% if user.name %}
+						<h2 class="dev__name">{{user.name}}</h2>
+						{% else %}
+						<h2 class="dev__name">{{user.username}}</h2>
+						{% endif %}
+
+						<p class="dev__title">{{user.email}}</p>
+
+						<a href="{% url 'edit-profile' %}" class="ubtn">Edit Profile</a>
+					</div>
+				</div>
+			</div>
+
+			<!-- RIGHT CONTENT -->
+			<div class="col-lg-8 pt-3">
+				<div class="devInfo px-5 mb-5">
+					<div class="settings">
+						<h3 class="settings__title">Personal Information</h3>
+						<a class="tag tag--pill tag--sub settings__btn tag--lg" href="{% url 'edit-info' %}"><i class="im im-plus"></i> Edit</a>
+					</div>
+					<div class="devSkill mt-5">
+						<h4 class="devSkill__title">Employee #:</h4>
+						{% if user.employee_num %}
+						<p class="devSkill__info">{{user.employee_num}}</p>
+						{% else %}
+						<p class="devSkill__info">N/A</p>
+						{% endif %}
+					</div>
+					<div class="devSkill">
+						<h4 class="devSkill__title">Phone #:</h4>
+						{% if user.phone_num %}
+						<p class="devSkill__info">{{user.phone_num}}</p>
+						{% else %}
+						<p class="devSkill__info">N/A</p>
+						{% endif %}
+					</div>
+					<div class="devSkill">
+						<h4 class="devSkill__title">Gender:</h4>
+						{% if user.gender %}
+						<p class="devSkill__info">{{user.gender}}</p>
+						{% else %}
+						<p class="devSkill__info">N/A</p>
+						{% endif %}
+					</div>
+					<div class="devSkill">
+						<h4 class="devSkill__title">Nationality:</h4>
+						{% if user.nationality %}
+						<p class="devSkill__info">{{user.nationality}}</p>
+						{% else %}
+						<p class="devSkill__info">N/A</p>
+						{% endif %}
+					</div>
+					<div class="devSkill">
+						<h4 class="devSkill__title">Occupation:</h4>
+						{% if user.occupation %}
+						<p class="devSkill__info">{{user.occupation}}</p>
+						{% else %}
+						<p class="devSkill__info">N/A</p>
+						{% endif %}
+					</div>
+					<div class="devSkill">
+						<h4 class="devSkill__title">Birth Date:</h4>
+						{% if user.birth_date %}
+						<p class="devSkill__info">{{user.birth_date}}</p>
+						{% else %}
+						<p class="devSkill__info">N/A</p>
+						{% endif %}
+					</div>
+					<div class="devSkill">
+						<h4 class="devSkill__title">Present Address:</h4>
+						{% if user.address %}
+						<p class="devSkill__info">{{user.address}}</p>
+						{% else %}
+						<p class="devSkill__info">N/A</p>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</main>
+{% endblock content %}

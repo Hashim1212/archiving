@@ -1,0 +1,68 @@
+* gawa new folder / open sa vscode / open terminal
+- virtualenv env
+- env\scripts\activate
+- pip install django
+- pip install pillow
+- pip install mysqlclient
+- django-admin startproject wesmaarrdec .
+- python manage.py startapp home
+
+# wesmaarrdec > settings.py
+    from pathlib import Path
+    import os
+
+    INSTALLED_APPS [
+        'home.apps.HomeConfig',
+    ]
+
+    TEMPLATES =
+        DIRS: [
+            os.path.join(BASE_DIR, 'templates')
+        ]
+
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'dbname',
+            'HOST': 'localhost',
+            'PORT': '3306',
+            'USER': 'root',
+            'PASSWORD': '',
+        }
+    }
+
+    AUTH_USER_MODEL = 'home.User'
+
+
+    STATICFILES_DIRS = [os.path.join(BASE_DIR), 'static']
+
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'static/files')
+    MEDIA_URL = '/files/
+
+# project > urls.py
+    from django.urls import path, include
+
+    from django.conf import settings
+    from django.conf.urls.static import static
+
+    urlpatterns = [
+        path('', include('home.urls')),
+    ]
+
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+* Open XAMMP (run as admin)
+* Check Apache / MySQL
+* localhost/phpmyadmin
+* create new database
+* rename the DB NAME in project > settings.py
+
+* create template folder and static folder
+* copy and Paste templates / static / home folder
+
+- python manage.py makemigrations
+- python manage.py migrate
+- python manage.py createsuperuser
+- admin / admin@email.com / useradmin
+- python manage.py runserver

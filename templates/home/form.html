@@ -1,0 +1,100 @@
+<!-- Extends to Main.html -->
+{% extends 'index.html' %}
+
+<!-- Load static -->
+{% load static %}
+
+<!-- Load Datepicker CSS -->
+{% block css %}
+<link
+	rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.css"
+	integrity="sha256-b88RdwbRJEzRx95nCuuva+hO5ExvXXnpX+78h8DjyOE="
+	crossorigin="anonymous"
+/>
+{% endblock css %}
+
+<!-- Main Content -->
+{% block content %}
+<main>
+	<div class="formwrapper">
+		<div class="create-room layout">
+			<div class="formcontainer">
+				<div class="form__box">
+					<div class="form__top">
+						<div class="room__topleft">
+							<a href="memorandum.html">
+								<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+									<title>arrow-left</title>
+									<path
+										d="M13.723 2.286l-13.723 13.714 13.719 13.714 1.616-1.611-10.96-10.96h27.625v-2.286h-27.625l10.965-10.965-1.616-1.607z"
+									></path>
+								</svg>
+							</a>
+						</div>
+						<h3>Add Course</h3>
+					</div>
+					<div class="layout__body">
+						<!-- {% if messages %} {% for message in messages %}
+                        <p style="text-align: center; justify-content: center; color: red">{{ message }}</p>
+                        {% endfor %} {% endif %} -->
+						<form action="" class="modalform" method="POST" enctype="multipart/form-data">
+							<!-- {% csrf_token %} -->
+							<div class="modalform__group">
+								<label for="coursetitle">Course Title:</label>
+								<input type="text" id="coursetitle" name="title" placeholder="e.g. Introduction to HTML" />
+							</div>
+							<!-- <div class="modalform__group">
+                                <label for="bg_image">Cover:</label>
+                                {{form.bg_image}}
+                            </div> -->
+							<!-- <div class="modalform__group">
+                                <label for="category">Category:</label>
+                                <input type="text" name="category" id="category"list="category-list" />
+                                <datalist id="category-list">
+                                    <select name="" id="">
+                                        <option value=""></option>
+                                        {% for category in categories %}
+                                        <option value="{{category.name}}">{{category.name}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </datalist>
+                            </div> -->
+							<div class="modalform__group">
+								<label for="description">Description:</label>
+								<textarea name="description" cols="40" rows="10" id="description"></textarea>
+							</div>
+							<div class="modalform__action">
+								<a class="modalbtn modalbtn--dark" href="memorandum.html">Cancel</a>
+								<button class="modalbtn modalbtn--main" type="submit">Create Course</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</main>
+
+<!-- Load Datepicker JS -->
+{% block js %}
+<script
+	src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+	crossorigin="anonymous"
+></script>
+
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js"
+	integrity="sha256-/7FLTdzP6CfC1VBAj/rsp3Rinuuu9leMRGd354hvk0k="
+	crossorigin="anonymous"
+></script>
+
+<script>
+	$(function () {
+		$("#id_start").datepicker({
+			format: "yyyy-mm-dd",
+		});
+	});
+</script>
+{% endblock js %} {% endblock content %}

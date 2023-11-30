@@ -1,0 +1,191 @@
+<!-- Extends to Main.html -->
+{% extends 'index.html' %}
+
+<!-- Load static -->
+{% load static %}
+
+<!-- Load Datatables CSS -->
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/datatables.css' %}" />
+{% endblock css %}
+
+<!-- Main Content -->
+{% block content %}
+<main>
+	<div class="container">
+		<h2 class="head-text">{{moa.moau_title}} Archive</h2>
+
+		<div class="row pt-2">
+			<div class="col-lg-4 pt-3">
+				<div class="ucard">
+					<div class="ucard__body dev">
+						<h3 class="details_title">{{moa.moau_no}} - {{moa.moau_title}}</h3>
+						<p class="details_description">{{moa.moau_objective}}</p>
+						<ul class="details_info">
+							<li>File Type - <span>{{moa.moau_type}}</span></li>
+							<li>Approve Date - <span>{{moa.moau_approve_date}}</span></li>
+							<li>Notarized By - <span>{{moa.moau_notarized_by}}</span></li>
+							<li>Notarized Date - <span>{{moa.moau_notarized_date}}</span></li>
+							<li>Created At - <span>{{moa.created_at}}</span></li>
+							<li>Created By - <span>{{moa.created_by}}</span></li>
+							{% if moa.created_at|date:"F d, Y f a" == moa.modified_at|date:"F d, Y f a" %}
+							<li>Modified At - <span>Not yet modified</span></li>
+							<li>Modified By - <span>Not yet modified</span></li>
+							{% else %}
+							<li>Modified At - <span>{{moa.modified_at}}</span></li>
+							<li>Modified By - <span>{{moa.modified_by}}</span></li>
+							{% endif %}
+						</ul>
+
+						<a href="{% url 'delete-moa' moa.moau_no %}" class="dbtn">Delete File</a>
+						<a href="{% url 'edit-moa' moa.moau_no %}" class="ubtn">Edit File</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-8 pt-3">
+				<div class="card shadow mb-4 mt-2">
+					<div class="dashboard-header card-header py-3 d-flex flex-row align-items-center justify-content-between">
+						<h4 class="font-weight-bold archives">Parties</h4>
+						<a href="{% url 'add-party' moa.moau_no %}" class="add-docs d-none d-sm-inline-block btn btn-sm shadow-sm"> Add Parties </a>
+					</div>
+					<div class="card-body">
+						<div class="table-responsive">
+							<table class="table" width="100%" cellspacing="0">
+								<thead>
+									<tr>
+										<th>#</th>
+										<th>Agency</th>
+										<th>Represented By</th>
+										<th>Address</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									{% for party in moa.moauparties_set.all %}
+									<tr>
+										<td>{{forloop.counter}}</td>
+										<td>{{party.agency}}</td>
+										<td>{{party.represented_by}} ({{party.position}})</td>
+										<td>{{party.address}}</td>
+										<td class="text-center">
+											<span class="pop dl-docs d-none d-sm-inline-block btn btn-sm shadow-sm"> Preview </span>
+											<a href="{% url 'edit-party' party.id %}" class="dl-docs d-none d-sm-inline-block btn btn-sm shadow-sm"> Edit </a>
+											<a href="{% url 'delete-party' party.id %}" class="del-docs d-none d-sm-inline-block btn btn-sm shadow-sm"> Delete </a>
+											<div class="preview_item-details">
+												<h3 class="details_title">{{moa.moau_no}} - {{moa.moau_title}}</h3>
+												<ul class="details_info">
+													<li>Agency - <span>{{party.agency}}</span></li>
+													<li>Represented By - <span>{{party.represented_by}} ({{party.position}})</span></li>
+													<li>Address - <span>{{party.address}}</span></li>
+													<li>Referred to as: - <span>{{party.referred_to_as}}</span></li>
+													<li>Created At - <span>{{party.created_at}}</span></li>
+													<li>Created By - <span>{{party.created_by}}</span></li>
+													{% if party.created_at|date:"F d, Y" == party.modified_at|date:"F d, Y" %}
+													<li>Modified At - <span>Not yet modified</span></li>
+													<li>Modified By - <span>Not yet modified</span></li>
+													{% else %}
+													<li>Modified At - <span>{{party.modified_at}}</span></li>
+													<li>Modified By - <span>{{party.modified_by}}</span></li>
+													{% endif %}
+												</ul>
+											</div>
+										</td>
+									</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+
+				<div class="card shadow mb-4 mt-2">
+					<div class="dashboard-header card-header py-3 d-flex flex-row align-items-center justify-content-between">
+						<h4 class="font-weight-bold archives">Signatories</h4>
+						<a href="{% url 'add-signatory' moa.moau_no %}" class="add-docs d-none d-sm-inline-block btn btn-sm shadow-sm"> Add Signatories </a>
+					</div>
+					<div class="card-body">
+						<div class="table-responsive">
+							<table class="table" width="100%" cellspacing="0">
+								<thead>
+									<tr>
+										<th>#</th>
+										<th>Signed By</th>
+										<th>Agency</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									{% for signatory in moa.moausignatories_set.all %}
+									<tr>
+										<td>{{forloop.counter}}</td>
+										<td>{{signatory.signed_by}} ({{signatory.position}})</td>
+										<td>{{signatory.agency}}</td>
+										<td class="text-center">
+											<a href="{% url 'edit-signatory' signatory.id %}" class="dl-docs d-none d-sm-inline-block btn btn-sm shadow-sm"> Edit </a>
+											<a href="{% url 'delete-signatory' signatory.id %}" class="del-docs d-none d-sm-inline-block btn btn-sm shadow-sm"> Delete </a>
+										</td>
+									</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="preview_popup">
+		<div class="preview_popup-inner">
+			<div class="preview_popup-content grid">
+				<span class="preview_popup-close">
+					<i class="bx bx-x"></i>
+				</span>
+				<div class="preview_popup-info">
+					<div class="preview_popup-body">
+						<h3 class="details_title">Try - Try</h3>
+						<p class="details_description">Try</p>
+						<ul class="details_info">
+							<li>Approve Date - <span>Tr</span></li>
+							<li>Notarized By - <span>Try</span></li>
+							<li>Notarized Date - <span>Try</span></li>
+							<li>Created At - <span>Try</span></li>
+							<li>Created By - <span>Try</span></li>
+							<li>Modified At - <span>Try</span></li>
+							<li>Modified By - <span>Try</span></li>
+						</ul>
+						<span><a href="Try">View File</a></span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</main>
+
+<script>
+	document.addEventListener("click", (e) => {
+		if (e.target.classList.contains("pop")) {
+			togglePortfolioPopup();
+
+			portfolioItemDetails(e.target.parentElement);
+			// console.log(e.target.parentElement);
+		}
+	});
+
+	function togglePortfolioPopup() {
+		document.querySelector(".preview_popup").classList.toggle("open");
+	}
+
+	document.querySelector(".preview_popup-close").addEventListener("click", togglePortfolioPopup);
+
+	function portfolioItemDetails(portfolioItem) {
+		document.querySelector(".preview_popup-body").innerHTML = portfolioItem.querySelector(".preview_item-details").innerHTML;
+	}
+</script>
+
+<!-- Load Datatables JS -->
+{% block js %}
+<script src="{% static 'js/simple-datatables.js' %}"></script>
+<script src="{% static 'js/tinymce.min.js' %}"></script>
+<script src="{% static 'js/datatables.js' %}"></script>
+{% endblock js %} {% endblock content %}

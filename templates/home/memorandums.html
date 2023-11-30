@@ -1,0 +1,201 @@
+<!-- Extends to Main.html -->
+{% extends 'index.html' %}
+
+<!-- Load static -->
+{% load static %} {% load widget_tweaks %}
+
+<!-- Load Datatables CSS -->
+{% block css %}
+<link
+	rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.css"
+	integrity="sha256-b88RdwbRJEzRx95nCuuva+hO5ExvXXnpX+78h8DjyOE="
+	crossorigin="anonymous"
+/>
+
+<link rel="stylesheet" href="{% static 'css/datatables.css' %}" />
+{% endblock css %}
+
+<!-- Main Content -->
+{% block content %}
+<main>
+	<div class="container">
+		<h2 class="head-text">MEMORANDUMS ARCHIVING</h2>
+
+		<div class="row g-1">
+			<div class="col-10">
+				<div class="card shadow mb-4 mt-5">
+					<div class="dashboard-header card-header py-3 d-flex flex-row align-items-center justify-content-between">
+						<h4 class="font-weight-bold archives">Archives ({{memorandums.count}})</h4>
+						<div>
+							<a href="{% url 'backup-memorandums' %}" class="i-docs d-none d-sm-inline-block btn btn-sm shadow-sm">
+								<i class="bx bx-history"></i>
+							</a>
+							<a href="{% url 'add-memo' %}" class="add-docs d-none d-sm-inline-block btn btn-sm shadow-sm"> Upload Document </a>
+						</div>
+					</div>
+					<div class="card-body">
+						<div class="table-responsive">
+							<table class="table datatable" width="100%" cellspacing="0">
+								<thead>
+									<tr>
+										<th>Memo No.</th>
+										<th>Date</th>
+										<th>Subject</th>
+										<th>Content</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									{% for memo in memorandums %}
+									<tr>
+										<td>{{memo.memo_no}}</td>
+										<td>{{memo.memo_date}}</td>
+										<td>{{memo.memo_subject}}</td>
+										<td>{{memo.memo_content|truncatechars:30}}</td>
+										<td class="text-center">
+											<span class="pop dl-docs d-none d-sm-inline-block btn btn-sm shadow-sm"> Preview </span>
+											<a href="{% url 'edit-memo' memo.memo_no %}" class="dl-docs d-none d-sm-inline-block btn btn-sm shadow-sm"> Edit </a>
+											<a href="{% url 'delete-memo' memo.memo_no %}" class="del-docs d-none d-sm-inline-block btn btn-sm shadow-sm"> Delete </a>
+											<div class="preview_item-details">
+												<h3 class="details_title">{{memo.memo_no}} - {{memo.memo_subject}}</h3>
+												<p class="details_description">{{memo.memo_content}}</p>
+												<ul class="details_info">
+													<li>Date - <span>{{memo.memo_date}}</span></li>
+
+													{% if memo.memo_to %}
+													<li>Memo To - <span>{{memo.memo_to}} {% if memo.memo_to_pos %}({{memo.memo_to_pos}}) {% endif %}</span></li>
+													{% endif %} {% if memo.memo_thru %}
+													<li>Memo Thru - <span>{{memo.memo_thru}} {% if memo.memo_thru_pos %}({{memo.memo_thru_pos}}) {% endif %}</span></li>
+													{% endif %} {% if memo.memo_from %}
+													<li>Memo From - <span>{{memo.memo_from}} {% if memo.memo_from_pos %} ({{memo.memo_from_pos}}){% endif %}</span></li>
+													{% endif %}
+													<li>Recommended By - <span>{{memo.memo_recomm_by}}</span></li>
+													<li>Approved By - <span>{{memo.memo_approved_by}}</span></li>
+													<li>Created At - <span>{{memo.created_at}}</span></li>
+													<li>Created By - <span>{{memo.created_by}}</span></li>
+													{% if memo.created_at|date:"F d, Y f a" == memo.modified_at|date:"F d, Y f a" %}
+													<li>Modified At - <span>Not yet modified</span></li>
+													<li>Modified By - <span>Not yet modified</span></li>
+													{% else %}
+													<li>Modified At - <span>{{memo.modified_at}}</span></li>
+													<li>Modified By - <span>{{memo.modified_by}}</span></li>
+													{% endif %}
+												</ul>
+
+												{% if memo.memo_file %}
+												<span class="file"><a href="{{memo.memo_file.url}}" target="_blank">View File</a></span>
+												{% endif %}
+											</div>
+										</td>
+									</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-2">
+				<div class="mt-5 ms-2">
+					<div class="row g-1 align-items-center">
+						<h3 class="text-center mt-1">Filters</h3>
+						<form action="{% url 'memorandums' %}" method="GET" id="searchForm">
+							<div class="mb-3">{% render_field form.memo_subject__icontains placeholder="Memo Subject" class+="form-control" %}</div>
+
+							<div class="mb-3">{% render_field form.memo_content__icontains placeholder="Memo Content" class+="form-control" %}</div>
+
+							<div class="mb-3">{% render_field form.memo_recomm_by__icontains placeholder="Recommended By" class+="form-control" %}</div>
+
+							<div class="mb-3">{% render_field form.memo_approved_by__icontains placeholder="Approved By" class+="form-control" %}</div>
+
+							<div class="mb-3">{% render_field form.memo_date placeholder="Memo Date" class+="form-control" autocomplete="off" %}</div>
+
+							<!-- <div>{{form.moau_type}}</div>d -->
+
+							<!-- <div>{{form.moau_approve_date}}</div> -->
+
+							<a class="btn btn-danger" href="{% url 'memorandums' %}">Reset</a>
+							<input type="submit" value="Submit" class="btn btn-primary" />
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="preview_popup">
+		<div class="preview_popup-inner">
+			<div class="preview_popup-content grid">
+				<span class="preview_popup-close">
+					<i class="bx bx-x"></i>
+				</span>
+				<div class="preview_popup-info">
+					<div class="preview_popup-body">
+						<h3 class="details_title">The services provide for design</h3>
+						<p class="details_description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta, at.</p>
+						<ul class="details_info">
+							<li>Created - <span>Dec 20, 2023</span></li>
+							<li>Technologies - <span>HTML CSS</span></li>
+							<li>Role - <span>Frontend</span></li>
+							<li>
+								View - <span><a href="#">www.domain.com</a></span>
+							</li>
+							<li>Created - <span>January 26, 2023</span></li>
+							<li>Type - <span>Memo</span></li>
+							<li>Role - <span>Frontend</span></li>
+							<li>
+								View - <span><a href="#">www.domain.com</a></span>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</main>
+<script
+	src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+	crossorigin="anonymous"
+></script>
+
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js"
+	integrity="sha256-/7FLTdzP6CfC1VBAj/rsp3Rinuuu9leMRGd354hvk0k="
+	crossorigin="anonymous"
+></script>
+
+<script>
+	document.addEventListener("click", (e) => {
+		if (e.target.classList.contains("pop")) {
+			togglePortfolioPopup();
+
+			portfolioItemDetails(e.target.parentElement);
+			// console.log(e.target.parentElement);
+		}
+	});
+
+	function togglePortfolioPopup() {
+		document.querySelector(".preview_popup").classList.toggle("open");
+	}
+
+	document.querySelector(".preview_popup-close").addEventListener("click", togglePortfolioPopup);
+
+	function portfolioItemDetails(portfolioItem) {
+		document.querySelector(".preview_popup-body").innerHTML = portfolioItem.querySelector(".preview_item-details").innerHTML;
+	}
+
+	$(function () {
+		$("#id_memo_date").datepicker({
+			format: "yyyy-mm-dd",
+		});
+	});
+</script>
+
+<!-- Load Datatables JS -->
+{% block js %}
+<script src="{% static 'js/simple-datatables.js' %}"></script>
+<script src="{% static 'js/tinymce.min.js' %}"></script>
+<script src="{% static 'js/datatables.js' %}"></script>
+{% endblock js %} {% endblock content %}

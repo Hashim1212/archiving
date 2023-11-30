@@ -1,0 +1,135 @@
+{% load static %}
+
+<section class="home-section" >    
+	<div class="header">
+	  <i class='bx bx-menu'></i>
+		<a href="{% url 'home' %}" class="header_logo" style="position: relative;">
+			<img src="{% static 'images/WESMAARRDEC.png' %}" alt="WESMAARRDEC Logo" />
+			<h1>
+				WESMAARRDEC <br />
+				<span>Archiving Management System</span>
+			</h1>
+		</a>
+		{% if request.user.is_authenticated %}
+		<h4>{{user.username}}</h4><i class="bx bx-user" id="icon"></i>
+		<a href="{% url 'logout' %}" class="auth_links">Logout</a>
+		{% else %}
+		<a href="{% url 'login' %}" class="auth_links">Login</a>
+		{% endif %}
+	</div>
+</section>   
+
+<div class="sidebar close">
+	<ul class="nav-links">
+		<li>
+			<a href="{% url 'home' %}">
+				<i class='bx bx-sidebar' ></i>
+				<span class="link_name">Dashboard</span>
+			</a>
+		</li>
+	
+		<li>
+			<a href="{% url 'generate-reports' %}" target="_blank">
+				<i class='bx bx-chalkboard' ></i>
+				<span class="link_name">Generate Reports</span>
+			</a>
+		</li>
+
+		<li>
+			<div class="iocn-link">
+				<a href="#">
+					<i class='bx bxs-spreadsheet'></i>
+					<span class="link_name">Manage Documents</span></a>
+				</a>
+				<i class='bx bxs-chevron-down arrow'></i>
+			</div>
+		
+			<ul class="sub-menu">
+				<li><a class="navbuttons" href="{% url 'moas' %}">MOA/U/C</a></li>
+				
+				<li><a class="navbuttons" href="{% url 'events' %}">Events</a></li>
+				
+				<li><a class="navbuttons" href="{% url 'memorandums' %}">Memorandums</a></li>
+				
+				<li><a class="navbuttons" href="{% url 'comm-letters' %}">Letters</a></li>
+				
+				<li><a class="navbuttons" href="{% url 'special-orders' %}">Special Orders</a></li>
+			</ul>
+		</li>
+	  
+		<li>
+			<a href="{% url 'archives' %}">
+				<i class='bx bx-history' ></i>
+				<span class="link_name">Archiving</span>
+			</a>
+		</li>
+
+		<li>
+			<div class="iocn-link">
+				<a href="{% url 'about' %}">
+					<i class='bx bx-book-open'></i>
+					<span class="link_name">About Us</span></a>
+				</a>
+			</div>
+		</li>
+
+		<li>
+			<a href="{% url 'profile' %}">
+				<i class='bx bxs-user' ></i>
+				<span class="link_name">Profile</span>
+			</a>
+		</li>
+
+		{% if request.user.is_authenticated %}
+		<li>
+			<a href="{% url 'logout' %}">
+				<i class='bx bx-log-out' ></i>
+				<span class="link_name">Logout</span>
+			</a>
+		</li>
+		{% endif %}
+
+		<!-- <li>
+			<a href="">
+				<i class='bx bx-id-card ' ></i>
+				<span class="link_name">Research Project</span>
+			</a>
+		</li>
+
+		<li>
+			<a href="">
+				<i class='bx bxs-tree-alt' ></i>
+				<span class="link_name">Commodities</span>
+			</a>
+		</li>
+	  
+	  
+		<li>
+			<div class="iocn-link">
+				<a href="#">
+					<i class='bx bx-grid-alt'></i>
+					<span class="link_name">more...</span></a>
+				</a>
+				<i class='bx bxs-chevron-down arrow'></i>
+			</div>
+		
+			<ul class="sub-menu">
+				<li><a class="navbuttons" href="">SDG</a></li>
+				
+				<li><a class="navbuttons" href="">Researchers</a></li>
+				
+				<li><a class="navbuttons" href="">Stakeholders</a></li>
+				
+				<li><a class="navbuttons" href="">IEC Materials</a></li>
+				
+				<li><a class="navbuttons" href="">Priority Areas</a></li>
+				
+				<li><a class="navbuttons" href="">Program Budgets</a></li>
+				
+				<li><a class="navbuttons" href="">Project Outputs</a></li>
+				
+				<li><a class="navbuttons" href="">Project Implementation Sites</a></li>
+			</ul>
+		</li> -->
+	</ul>
+</div>

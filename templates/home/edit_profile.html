@@ -1,0 +1,62 @@
+<!-- Extends to Main.html -->
+{% extends 'index.html' %}
+
+<!-- Load static -->
+{% load static %}
+
+<!-- Main Content -->
+{% block content %}
+<main>
+	<div class="formwrapper ep_wrap">
+		<div class="create-room layout">
+			<div class="formcontainer">
+				<div class="form__box ep_box">
+					<div class="form__top">
+						<div class="room__topleft">
+							<a href="{% url 'profile' %}">
+								<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+									<title>arrow-left</title>
+									<path
+										d="M13.723 2.286l-13.723 13.714 13.719 13.714 1.616-1.611-10.96-10.96h27.625v-2.286h-27.625l10.965-10.965-1.616-1.607z"
+									></path>
+								</svg>
+							</a>
+						</div>
+						<h3>Edit Profile</h3>
+					</div>
+					<div class="layout__body">
+						{% if messages %} {% for message in messages %} {% if message.tags == 'success' %}
+						<p style="text-align: center; justify-content: center; color: green">{{ message }}</p>
+						{% else %}
+						<p style="text-align: center; justify-content: center; color: red">{{ message }}</p>
+						{% endif %} {% endfor %} {% endif %}
+						<form action="" class="modalform" method="POST" enctype="multipart/form-data">
+							{% csrf_token %}
+							<div class="modalform__group">
+								<label for="name">Name:</label>
+								<input type="text" id="name" name="name" value="{{user.name}}" />
+							</div>
+							<div class="modalform__group">
+								<label for="username">Username:</label>
+								<input type="text" id="username" name="username" value="{{user.username}}" />
+							</div>
+							<div class="modalform__group">
+								<label for="email">Email:</label>
+								<input type="email" id="email" name="email" value="{{user.email}}" />
+							</div>
+							<div class="modalform__group">
+								<label for="avatar">Profile:</label>
+								{{form.avatar}}
+							</div>
+							<div class="modalform__action">
+								<a class="modalbtn modalbtn--dark" href="{% url 'profile' %}">Cancel</a>
+								<button class="modalbtn modalbtn--main" type="submit">Update Profile</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</main>
+{% endblock content %}
